@@ -53,10 +53,14 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
-
-
-
-
+for i = 1:m
+	% Train with ith samples
+	[theta] = trainLinearReg(X(1:i, :), y(1:i), lambda);
+	% Compute the cost on the train sequence
+	error_train(i) = linearRegCostFunction(X(1:i, :), y(1:i), theta, 0);
+	% Compute the cost on the validation sequence
+	error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
+end
 
 
 % -------------------------------------------------------------

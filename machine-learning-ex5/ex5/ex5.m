@@ -164,7 +164,7 @@ pause;
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 0;
+lambda = 1;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
@@ -216,5 +216,18 @@ for i = 1:length(lambda_vec)
             lambda_vec(i), error_train(i), error_val(i));
 end
 
+fprintf('Program paused. Press enter to continue.\n');
+pause;
+
+% =========== Part 9: (ungraded) Final test =============
+% lambda = 3 is the best regularization parameter
+
+lambda = 3
+[theta] = trainLinearReg(X_poly, y, lambda);
+
+Jtest = linearRegCostFunction(X_poly_test, ytest, theta, 0);
+
+fprintf('Final test. Cost with lambda 3: %f.\n', Jtest);
+fprintf('\t\t  Should be around 3.8599\n');
 fprintf('Program paused. Press enter to continue.\n');
 pause;
