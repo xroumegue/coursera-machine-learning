@@ -23,11 +23,22 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+values = [ 0.01 0.03 0.1 0.3 1 3 10 30 ];
+out = zeros(rows(values), rows(values));
 
+% i is C, j is sigma
+for i = 1: columns(values)
+	for j = 1: columns(values)
+		model= svmTrain(X, y, values(i), @(x1, x2) gaussianKernel(x1, x2, values(j)));
+		Y_prediction = svmPredict(model, Xval);
+		out(i,j) = mean(double(Y_prediction ~= yval));
+	end
+end
 
-
-
-
+[row, col] = find(out == min(min(out)));
+C = values(row);
+sigma = values(col);
+fprintf('Optimal values: C:%f sigma: %f\n', C, sigma);
 
 % =========================================================================
 
